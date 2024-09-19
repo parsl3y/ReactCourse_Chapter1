@@ -1,4 +1,3 @@
-// ToDoList.js
 import React from 'react';
 
 const ToDoList = ({ toDoList, onDelete }) => {
