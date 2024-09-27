@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-const Loading = ({ isLoading, children, delay = 2000 }) => { 
+const Loading = ({ isLoading, children}) => { 
   const [showChildren, setShowChildren] = useState(false);
   const [displayLoading, setDisplayLoading] = useState(true); 
-
+  const delay = 2000 ;
   useEffect(() => {
     let timer;
     if (isLoading) {
