@@ -1,23 +1,15 @@
-import { useEffect, useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 import AddToDoForm from './AddToDoForm';
 import ToDoList from './ToDoList';
-import useFetch from '../Hooks/useFetch';
+import useGetAllToDo from '../Hooks/useGetAllToDo';
+import Loading from './Loading';
 
 function ToDoContainer() {
   const [inputValue, setInputValue] = useState('');
-  const [toDoList, setToDoList] = useState([]);
   const [searchItem, setSearchItem] = useState('');
-
-  const [data] = useFetch('https://jsonplaceholder.typicode.com/todos');
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    if (data) {
-      setToDoList(data);
-      setIsLoading(false);
-    }
-  }, [data]);
+  
+  const { isLoading, data: toDoList, setData } = useGetAllToDo(); 
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -32,19 +24,17 @@ function ToDoContainer() {
       alert('ToDo item cannot be empty');
       return;
     }
-    setToDoList((data) => [
-      ...data,
-      {
-        id: Math.random(),
-        title: inputValue,
-        completed: completed, 
-      },
-    ]);
+    const newToDo = {
+      id: Math.random(),
+      title: inputValue,
+      completed: completed,
+    };
+    setData((prevData) => [...prevData, newToDo]); 
     setInputValue('');
   };
 
   const handleDelete = (id) => {
-    setToDoList((prevState) => prevState.filter((item) => item.id !== id));
+    setData((prevState) => prevState.filter((item) => item.id !== id)); 
   };
 
   const filteredToDoList = toDoList.filter((item) =>
@@ -52,12 +42,13 @@ function ToDoContainer() {
   );
 
   return (
-    <>
-      <SearchBar searchItem={searchItem} onSearchChange={handleSearchChange}  />
-      <AddToDoForm inputValue={inputValue} onInputChange={handleInputChange} onSubmit={handleAddToDo} />
-      <ToDoList toDoList={filteredToDoList} onDelete={handleDelete} />
-      {isLoading && <div>Loading...</div>}
-    </>
+    <Loading isLoading={isLoading}>
+      <>
+        <SearchBar searchItem={searchItem} onSearchChange={handleSearchChange} />
+        <AddToDoForm inputValue={inputValue} onInputChange={handleInputChange} onSubmit={handleAddToDo} />
+        <ToDoList toDoList={filteredToDoList} onDelete={handleDelete} />
+      </>
+      </Loading>
   );
 }
 
