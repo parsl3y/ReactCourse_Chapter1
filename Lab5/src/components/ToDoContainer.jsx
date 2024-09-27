@@ -9,8 +9,8 @@ import Loading from './Loading';
 function ToDoContainer() {
   const [inputValue, setInputValue] = useState('');
   const [searchItem, setSearchItem] = useState('');
-  
-  const { isLoading, data: toDoList, setData } = useGetAllToDo(); 
+
+  const { isLoading, data: toDoList, setData } = useGetAllToDo();
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -30,12 +30,12 @@ function ToDoContainer() {
       title: inputValue,
       completed: completed,
     };
-    setData((prevData) => [...prevData, newToDo]); 
+    setData((prevData) => [...prevData, newToDo]);
     setInputValue('');
   };
 
   const handleDelete = (id) => {
-    setData((prevState) => prevState.filter((item) => item.id !== id)); 
+    setData((prevState) => prevState.filter((item) => item.id !== id));
   };
 
   const filteredToDoList = toDoList.filter((item) =>
@@ -45,11 +45,17 @@ function ToDoContainer() {
   return (
     <Loading isLoading={isLoading}>
       <>
-       <p class="search"> <SearchBar searchItem={searchItem} onSearchChange={handleSearchChange} />
-       </p><AddToDoForm inputValue={inputValue} onInputChange={handleInputChange} onSubmit={handleAddToDo} />
+        <div className="search">
+          <SearchBar searchItem={searchItem} onSearchChange={handleSearchChange} />
+        </div>
+        <AddToDoForm
+          inputValue={inputValue}
+          onInputChange={handleInputChange}
+          onSubmit={handleAddToDo}
+        />
         <ToDoList toDoList={filteredToDoList} onDelete={handleDelete} />
       </>
-      </Loading>
+    </Loading>
   );
 }
 
