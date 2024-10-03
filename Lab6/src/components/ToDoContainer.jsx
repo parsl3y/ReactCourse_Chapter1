@@ -38,6 +38,14 @@ function ToDoContainer() {
     setData((prevState) => prevState.filter((item) => item.id !== id)); 
   };
 
+  const handleUpdate = (id, updatedTitle) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === id ? { ...item, title: updatedTitle } : item
+      )
+    );
+  };
+
   const filteredToDoList = toDoList.filter((item) =>
     item.title.toLowerCase().includes(searchItem.toLowerCase())
   );
@@ -45,11 +53,13 @@ function ToDoContainer() {
   return (
     <Loading isLoading={isLoading}>
       <>
-       <p class="search"> <SearchBar searchItem={searchItem} onSearchChange={handleSearchChange} />
-       </p><AddToDoForm inputValue={inputValue} onInputChange={handleInputChange} onSubmit={handleAddToDo} />
-        <ToDoList toDoList={filteredToDoList} onDelete={handleDelete} />
+        <p className="search">
+          <SearchBar searchItem={searchItem} onSearchChange={handleSearchChange} />
+        </p>
+        <AddToDoForm inputValue={inputValue} onInputChange={handleInputChange} onSubmit={handleAddToDo} />
+        <ToDoList toDoList={filteredToDoList} onDelete={handleDelete} onUpdate={handleUpdate} />
       </>
-      </Loading>
+    </Loading>
   );
 }
 
