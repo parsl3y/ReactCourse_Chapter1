@@ -3,6 +3,8 @@ import ToDoItem from './ToDoItems.jsx';
 import "../App.css";
 
 function ToDoList({ toDoList, onDelete, onUpdate }) {
+  //List Rendering | Callback Pattern | Key Prop for Lists
+
   return (
     <ul>
       {toDoList.map((item) => (
