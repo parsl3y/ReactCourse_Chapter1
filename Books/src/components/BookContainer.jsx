@@ -7,16 +7,19 @@ function BookContainer() {
   const [toDoList, setToDoList] = useState([]);
   const [searchItem, setSearchItem] = useState('');
 
+
   const handleAddToDo = (newToDo) => {
-    const today = new Date().toISOString().split('T')[0]; 
+    const newId = toDoList.length > 0 ? toDoList[toDoList.length - 1].id + 1 : 1;
+
     setToDoList((prevState) => [
       ...prevState,
       {
-        id: today, 
+        id: newId,
         ...newToDo,
       },
     ]);
   };
+  
   
   const handleSearchChange = (event) => {
     setSearchItem(event.target.value);
