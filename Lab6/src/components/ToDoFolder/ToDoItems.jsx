@@ -1,6 +1,6 @@
 import React from 'react';
-import useEdit from '../Hooks/useEdit';
-import "../App.css";
+import useEdit from '../../Hooks/useEdit'
+import "../../App.css";
 
 function ToDoItems({ item, onDelete, onUpdate }) { 
   //Lifting State Up  | Controlled Component | Conditional Rendering | Callback Pattern

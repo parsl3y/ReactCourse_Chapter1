@@ -1,7 +1,7 @@
 import './App.css';
 
-import ToDoContainer from './components/ToDoContainer';
-import PageTitle from './components/PageTitle';
+import ToDoContainer from './components/ToDoFolder/ToDoContainer'
+import PageTitle from './components/PageTitle/PageTitle';
 function App() {
  
 

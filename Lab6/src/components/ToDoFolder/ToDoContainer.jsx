@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import SearchBar from './SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 import AddToDoForm from './AddToDoForm';
 import ToDoList from './ToDoList';
-import '../App.css';
-import useGetAllToDo from '../Hooks/useGetAllToDo';
-import Loading from './Loading';
+import '../../App.css';
+import useGetAllToDo from '../../Hooks/useGetAllToDo';
+import Loading from '../Loading/Loading';
 
 function ToDoContainer() { 
   const [inputValue, setInputValue] = useState('');

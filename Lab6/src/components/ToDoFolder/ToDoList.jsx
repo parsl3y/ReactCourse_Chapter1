@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ToDoItem from './ToDoItems.jsx';
+import ToDoItem from '../ToDoFolder/ToDoItems';
 import "../App.css";
 
 function ToDoList({ toDoList, onDelete, onUpdate }) {

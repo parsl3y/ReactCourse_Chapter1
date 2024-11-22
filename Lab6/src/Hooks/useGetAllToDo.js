@@ -1,25 +1,31 @@
 import { useState, useEffect } from 'react'
 import useLoading from './useLoading'
 
-const useGetAllToDo = () => {
-  const {isLoading,setIsLoading} = useLoading()
+const useGetAllCourses = () => {
+  const { isLoading, setIsLoading } = useLoading()
 
   const [data, setData] = useState([])
 
   useEffect(() => {
     setIsLoading(true)
     const fetchData = async () => {
-      fetch('https://jsonplaceholder.typicode.com/todos')
-        .then((response) => response.json())
-        .then((json) => {
-          setData(json)
-          setIsLoading(false)
-        })
+      try {
+        const response = await fetch('http://localhost:5132/courses') // Коректний URL для отримання курсів
+        if (!response.ok) {
+          throw new Error('Failed to fetch courses')
+        }
+        const json = await response.json()
+        setData(json)
+      } catch (error) {
+        console.error('Error fetching courses:', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
     fetchData()
   }, [])
 
-  return { isLoading, data,setData }
+  return { isLoading, data, setData }
 }
 
-export default useGetAllToDo
+export default useGetAllCourses
